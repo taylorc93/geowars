@@ -1,47 +1,60 @@
 // Keydown events, updates the state manager with the action to
 // perform based on what key was pressed.
 $(document).keydown(function(e){
-	// Set to true at top to prevent setting it in each
-	// else if. Reset to false if the key pressed is not bound
-	StateManager.userInput = true;
-
 	// Left Arrow
 	if (e.which === 37){
-		StateManager.userAction = function(){
+		StateManager.didShiftLaser = true;
+		StateManager.laserAction = function(){
 			Player.laserFocalX--;
 		}
 	} 
 	// Right Arrow
 	else if (e.which === 39){
-		StateManager.userAction = function(){
+		StateManager.didShiftLaser = true;
+		StateManager.laserAction = function(){
 			Player.laserFocalX++;
 		}
 	}
 	// w
 	else if (e.which === 87){
-		console.log("w");
+		StateManager.didMoveShip = true;
+		StateManager.shipAction = function(){
+			Player.y--;
+		}
 	}
 	// a
 	else if (e.which === 65){
-		console.log("a");
+		StateManager.didMoveShip = true;
+		StateManager.shipAction = function(){
+			Player.x--;
+		}
 	}
 	// s
 	else if (e.which === 83){
-		console.log("s");
+		StateManager.didMoveShip = true;
+		StateManager.shipAction = function(){
+			Player.y++;
+		}
 	}
 	// d
 	else if (e.which === 68){
-		console.log("d");
+		StateManager.didMoveShip = true;
+		StateManager.shipAction = function(){
+			Player.x++;
+		}
 	} 
-	// Key not bound, reset userInput field.
-	else {
-		StateManager.userInput = false;
-	}
 });
 
-// Key Events
+// Updates the state manager to cancel user actions based on
+// which key was released
 $(document).keyup(function(e){
-	// We can set this to false immediately since any keyup
-	// indicates the end of userInput
-	StateManager.userInput = false;
+	// Left or Right Arrow
+	if (e.which === 37 || e.which === 39){
+		StateManager.didShiftLaser = false;
+	} 
+
+	// w, a, s, or d
+	else if (e.which === 87 || e.which === 65 || e.which === 83 || e.which === 68){
+		StateManager.didMoveShip = false;
+	}
 });

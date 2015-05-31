@@ -35,9 +35,16 @@ function gameLoop(){
 	// Test game over
 	// Test for bonuses
 
-	// Handle user input
-	if (StateManager.userInput){
-		StateManager.userAction();
+	// Handle user input.  There are two things that a user can
+	// do each game tick:
+	// 1. Shift the laser
+	// 2. Move the ship
+	// This flow allows both to happen in one game tick
+	if (StateManager.didShiftLaser){
+		StateManager.laserAction();
+	}
+	if (StateManager.didMoveShip){
+		StateManager.shipAction();
 	}
 
 	// Redrawing
