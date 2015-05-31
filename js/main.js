@@ -35,25 +35,30 @@ function gameLoop(){
 	// Test game over
 	// Test for bonuses
 
-	// Handle user input.  There are two things that a user can
+	// Handle user input.  There are three things that a user can
 	// do each game tick:
 	// 1. Shift the laser
 	// 2. Move the ship
-	// This flow allows both to happen in one game tick
-	if (StateManager.didShiftLaser){
-		StateManager.laserAction();
-	}
-	if (StateManager.didMoveShip){
-		StateManager.shipAction();
-	}
+	// 3. Rotate the ship
+	StateManager.rotateShip();
+	StateManager.moveShip();
+	StateManager.shiftLaser();
 
 	// Redrawing
 	draw(ctx);
+
+	// Reset state for each tick
+	StateManager.laserAction = function(){
+		return;
+	}
+	StateManager.shipAction = function(){
+		return;
+	}
 }
 
 $(document).ready(function(){
 	// Start game at 30fps
-	window.setInterval(gameLoop, 1000 / 30);
+	window.setInterval(gameLoop, 1000 / 60);
 
 
 	var canvas = document.getElementById("game-canvas");

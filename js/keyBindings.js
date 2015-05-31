@@ -1,60 +1,56 @@
-// Keydown events, updates the state manager with the action to
-// perform based on what key was pressed.
+// Keyup and Keydown events.  Each actions updates the state manager's
+// keysPressed property, which is used later to compose the player action
+// functions. 
 $(document).keydown(function(e){
 	// Left Arrow
 	if (e.which === 37){
-		StateManager.didShiftLaser = true;
-		StateManager.laserAction = function(){
-			Player.laserFocalX--;
-		}
+		StateManager.keysPressed.left = true;
 	} 
 	// Right Arrow
 	else if (e.which === 39){
-		StateManager.didShiftLaser = true;
-		StateManager.laserAction = function(){
-			Player.laserFocalX++;
-		}
+		StateManager.keysPressed.right = true;
 	}
 	// w
 	else if (e.which === 87){
-		StateManager.didMoveShip = true;
-		StateManager.shipAction = function(){
-			Player.y--;
-		}
+		StateManager.keysPressed.w = true;
 	}
 	// a
 	else if (e.which === 65){
-		StateManager.didMoveShip = true;
-		StateManager.shipAction = function(){
-			Player.x--;
-		}
+		StateManager.keysPressed.a = true;
 	}
 	// s
 	else if (e.which === 83){
-		StateManager.didMoveShip = true;
-		StateManager.shipAction = function(){
-			Player.y++;
-		}
+		StateManager.keysPressed.s = true;
 	}
 	// d
 	else if (e.which === 68){
-		StateManager.didMoveShip = true;
-		StateManager.shipAction = function(){
-			Player.x++;
-		}
+		StateManager.keysPressed.d = true;
 	} 
 });
 
-// Updates the state manager to cancel user actions based on
-// which key was released
 $(document).keyup(function(e){
-	// Left or Right Arrow
-	if (e.which === 37 || e.which === 39){
-		StateManager.didShiftLaser = false;
+	// Left Arrow
+	if (e.which === 37){
+		StateManager.keysPressed.left = false;
 	} 
-
-	// w, a, s, or d
-	else if (e.which === 87 || e.which === 65 || e.which === 83 || e.which === 68){
-		StateManager.didMoveShip = false;
+	// Right Arrow
+	else if (e.which === 39){
+		StateManager.keysPressed.right = false;
 	}
+	// w
+	else if (e.which === 87){
+		StateManager.keysPressed.w = false;
+	}
+	// a
+	else if (e.which === 65){
+		StateManager.keysPressed.a = false;
+	}
+	// s
+	else if (e.which === 83){
+		StateManager.keysPressed.s = false;
+	}
+	// d
+	else if (e.which === 68){
+		StateManager.keysPressed.d = false;
+	} 
 });
