@@ -57,7 +57,7 @@ var Player = {
 		ctx.stroke();
 	}
 }
-
+/*
 // Key Events
 $(document).keydown(function(e){
 	// Left Arrow
@@ -89,56 +89,92 @@ $(document).keydown(function(e){
 	var ctx = canvas.getContext("2d");
 
 	draw(ctx);	
-});
+});*/
 
 function draw(ctx){
-	ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+//	ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 	Player.render(ctx);
 }
 
-function makeGrid (canvas){
+function Grid(ctx){
+	
 
-	var array = []
-//	for (var i = 0; i < canvas.height; i++)
-//	{
+	var y = 10;
+	var x = 10;
+	for (var i = 0; y < CANVAS_HEIGHT; i++)
+	{
+		ctx.fillRect(0, y, CANVAS_WIDTH, 1);		
+		ctx.fillRect(x, 0, 1, CANVAS_HEIGHT);
+		ctx.fillStyle = "black";
+		if ((x % 100) == 0)
+		{
+			console.log(x %100);
+			ctx.fillStyle = "yellow";
+		}
 
-	ctx = canvas.getContext('2d');
-    // Filled triangle
-    ctx.beginPath();
-    ctx.moveTo(0,400);
-    ctx.lineTo(400,400);
-    ctx.closePath();
-    ctx.lineWidth = 2;
-    ctx.fill();
-//	}
+		ctx.fill();
+
+		y += 10;
+		x += 10;
+	}
+
+
+}
+
+function strokeWing( ctx, x, y, color)
+{
+	var xP; var yP;
+	ctx.beginPath();
+	ctx.strokeStyle =  color;
+	ctx.moveTo( x, y ); // starting point (40, 0)
+	ctx.lineTo( x-15, y+10 ); // first line is (-15, +10) i.e connects (40,0) to (25,10)
+	
+	ctx.moveTo( x, y ); // 40, 410 // brings it back to top point 
+	ctx.lineTo( x+15, y+10 ); // second line is (+15, +10) i.e connects (40,0) to (55, 10)
+	
+	y += 20;		
+	ctx.moveTo( x, y); // 40, 430 moves the starting point to (40, 20)
+	ctx.lineTo( x-5, y-10 ); // the third line is (-5, -10) i.e connects (40, 20) to (35, 10)
+	xP = x-5; yP = y-10; // x and y prime to hole intermediary coordinates (35,10)
+	ctx.lineTo( xP-10, yP); // the fourth line is (-10, 0) i.e connects (35,10) to (25,10)
+
+	ctx.moveTo( x, y ); // 40, 430 moves the starting point to (40, 20)
+	ctx.lineTo( x+5, y-10); //the fifth line is (+5, -10) connects (40, 20) to (45, 10)
+	xP = x+5; yP = y-10; // x and y prime to hole intermediary coordinates (45,10)
+	ctx.lineTo( xP+10, yP); // sixth line (+10,0) connects (45,10) to (55,10)
+	
+	ctx.moveTo(xP, yP); // moves the starting point to the current location of the drawing point to close the shape
+	ctx.closePath();
+	ctx.stroke();
 
 
 }
 
 
 $(document).ready(function(){
+
 	var canvas = document.getElementById("game-canvas");
-	var ctx0 = canvas.getContext("2d");
-	var ctx1= canvas.getContext("2d");
-	var ctx2 = canvas.getContext("2d");
+	var ctx = canvas.getContext("2d");
 
-	makeGrid(canvas);
+	//Grid(ctx);
 
-	ctx0.fillStyle = "green";
-	ctx0.fillRect(20, 20, 100, 100);
+	ctx.fillStyle = "green";
+	ctx.fillRect(20, 20, 100, 100);
 
-	ctx1.beginPath();
-	ctx1.fillStyle = "blue";
-	ctx1.moveTo(20,150);
-    ctx1.lineTo(120,225);
-    ctx1.lineTo(120,125);
-    ctx1.closePath();
-    ctx1.fill();
+	ctx.beginPath();
+	ctx.fillStyle = "blue";
+	ctx.moveTo(20,150);
+    ctx.lineTo(120,225);
+    ctx.lineTo(120,125);
+    ctx.closePath();
+    ctx.fill();
+    
+    strokeWing( ctx, 40, 410, "red");
+    strokeWing( ctx, 80, 410, "blue");
+    strokeWing( ctx, 120, 410, "green");
+    strokeWing( ctx, 160, 410, "black");
 
 
-
-	ctx2.fillStyle = "red";
-	ctx2.fillRect(20, 280, 100, 100);
 
 	draw(ctx);
 });
