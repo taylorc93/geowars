@@ -1,5 +1,5 @@
-var CANVAS_WIDTH = 700;
-var CANVAS_HEIGHT = 700;
+var CANVAS_WIDTH = 500;
+var CANVAS_HEIGHT = 500;
 
 // Global Player Object
 var Player = {
@@ -96,9 +96,49 @@ function draw(ctx){
 	Player.render(ctx);
 }
 
+function makeGrid (canvas){
+
+	var array = []
+//	for (var i = 0; i < canvas.height; i++)
+//	{
+
+	ctx = canvas.getContext('2d');
+    // Filled triangle
+    ctx.beginPath();
+    ctx.moveTo(0,400);
+    ctx.lineTo(400,400);
+    ctx.closePath();
+    ctx.lineWidth = 2;
+    ctx.fill();
+//	}
+
+
+}
+
+
 $(document).ready(function(){
 	var canvas = document.getElementById("game-canvas");
-	var ctx = canvas.getContext("2d");
+	var ctx0 = canvas.getContext("2d");
+	var ctx1= canvas.getContext("2d");
+	var ctx2 = canvas.getContext("2d");
+
+	makeGrid(canvas);
+
+	ctx0.fillStyle = "green";
+	ctx0.fillRect(20, 20, 100, 100);
+
+	ctx1.beginPath();
+	ctx1.fillStyle = "blue";
+	ctx1.moveTo(20,150);
+    ctx1.lineTo(120,225);
+    ctx1.lineTo(120,125);
+    ctx1.closePath();
+    ctx1.fill();
+
+
+
+	ctx2.fillStyle = "red";
+	ctx2.fillRect(20, 280, 100, 100);
 
 	draw(ctx);
 });
