@@ -1,12 +1,21 @@
-// Key Events
+// Keydown events, updates the state manager with the action to
+// perform based on what key was pressed.
 $(document).keydown(function(e){
+	// Set to true at top to prevent setting it in each
+	// else if. Reset to false if the key pressed is not bound
+	StateManager.userInput = true;
+
 	// Left Arrow
 	if (e.which === 37){
-		Player.laserFocalX--;
+		StateManager.userAction = function(){
+			Player.laserFocalX--;
+		}
 	} 
 	// Right Arrow
 	else if (e.which === 39){
-		Player.laserFocalX++;
+		StateManager.userAction = function(){
+			Player.laserFocalX++;
+		}
 	}
 	// w
 	else if (e.which === 87){
@@ -23,10 +32,16 @@ $(document).keydown(function(e){
 	// d
 	else if (e.which === 68){
 		console.log("d");
+	} 
+	// Key not bound, reset userInput field.
+	else {
+		StateManager.userInput = false;
 	}
+});
 
-	var canvas = document.getElementById("game-canvas");
-	var ctx = canvas.getContext("2d");
-
-	draw(ctx);	
+// Key Events
+$(document).keyup(function(e){
+	// We can set this to false immediately since any keyup
+	// indicates the end of userInput
+	StateManager.userInput = false;
 });

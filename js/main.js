@@ -24,7 +24,7 @@ function makeGrid (canvas){
 
 }
 
-
+// Main game loop, called continuously by window.setInterval
 function gameLoop(){
 	var canvas = document.getElementById("game-canvas");
 	var ctx = canvas.getContext("2d");
@@ -34,13 +34,21 @@ function gameLoop(){
 	// Collision testing 
 	// Test game over
 	// Test for bonuses
-	// Handle Player moves
-	// Redrawing
 
+	// Handle user input
+	if (StateManager.userInput){
+		StateManager.userAction();
+	}
+
+	// Redrawing
 	draw(ctx);
 }
 
 $(document).ready(function(){
+	// Start game at 30fps
+	window.setInterval(gameLoop, 1000 / 30);
+
+
 	var canvas = document.getElementById("game-canvas");
 	var ctx0 = canvas.getContext("2d");
 	var ctx1= canvas.getContext("2d");
