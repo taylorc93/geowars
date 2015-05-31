@@ -1,0 +1,2 @@
+var CANVAS_WIDTH = 500;
+var CANVAS_HEIGHT = 500;
