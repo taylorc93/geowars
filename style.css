@@ -1,0 +1,15 @@
+html {
+	height: 100%;
+}
+
+body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+#canvas-wrapper {
+	width: 800px;
+	margin: 0 auto;
+}
